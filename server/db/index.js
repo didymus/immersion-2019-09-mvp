@@ -7,7 +7,7 @@ const connection = mysql.createConnection({
   database: 'test',
 });
 
-const selectAll = (callback) => {
+const selectAll = (callback) => { // queries the DB
   connection.query('SELECT * FROM items', (err, items) => {
     if (err) {
       callback(err, null);
