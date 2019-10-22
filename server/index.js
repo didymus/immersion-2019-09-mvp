@@ -6,17 +6,18 @@ const axios = require('axios'); // for the requests to the db
 const db = require('./db');
 
 const PORT = 3000;
-const app = express();
+
+const familiar = express();
 
 // bodyParser -> req.body
-// bodyParser.urlencoded({ extended: true }) what is this method?
+// bodyParser.urlencoded({ extended: true }) what is this method? prolly wont need
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser);
-// the API requests go here:
 
+// #######[ API calls ]#######
 // curious about this one:
-//https://api.shodan.io/tools/httpheaders?key={YOUR_API_KEY}
+// https://api.shodan.io/tools/httpheaders?key={YOUR_API_KEY}
 
 module.exports.ipSearch = () {
   // ip search end point
@@ -38,17 +39,19 @@ module.exports.dnsResolve = async () {
   
 };
 
-// app.get('/items', (req, res) => { // selects all (*) from db in `items`
-//   items.selectAll((err, data) => {
-//     if (err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
+// #######[ Starting DB query ]#######
+
+familiar.get('/vulns', (req, res) => { // selects all (*) from db in `items`
+  vulns.queryVulns((err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 module.exports.
-  app.listen(PORT, () => {
+  familiar.listen(PORT, () => {
     console.log(`Listening on port :${PORT}!`);
   });

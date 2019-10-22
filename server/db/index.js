@@ -17,7 +17,8 @@ module.exports.queryVulns = (callback) => { // queries the DB
                   key_column_usage 
                   where 
                   referenced_table_name = 'hostip' 
-                  and referenced_column_name = 'hostip_id'`, (err, vulns) => {
+                  and referenced_column_name = 'hostip_id'`, 
+                  (err, vulns) => {
     if (err) {
       callback(err, null);
     } else {
