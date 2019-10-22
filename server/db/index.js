@@ -13,7 +13,11 @@ const connection = mysql.createConnection({
 connection.connect(); // connect
 
 module.exports.queryVulns = (callback) => { // queries the DB
-  connection.query('select ', (err, vulns) => { // FIX QUERY STATEMENT
+  connection.query(`select * from 
+                  key_column_usage 
+                  where 
+                  referenced_table_name = 'hostip' 
+                  and referenced_column_name = 'hostip_id'`, (err, vulns) => {
     if (err) {
       callback(err, null);
     } else {

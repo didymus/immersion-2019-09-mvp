@@ -8,6 +8,9 @@ const db = require('./db');
 const PORT = 3000;
 const app = express();
 
+// bodyParser -> req.body
+// bodyParser.urlencoded({ extended: true }) what is this method?
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser);
 // the API requests go here:
