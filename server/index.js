@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); // parses incoming req stream to `req.body`
 const axios = require('axios'); // for the requests to the db
-const { db } = require('./db');
+const db = require('./db');
 
 const PORT = 3000;
 
@@ -23,6 +23,7 @@ app.use(bodyParser);
 
 const ipSearch = app.get('https://api.shodan.io/shodan/host/206.82.85.197?key=7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4', (req, res) => {
   console.log(req.body); // 206.82.85.197
+  // probably 
   res.send('hello world');
   // express 'GET'
   // ip search end point:
@@ -49,7 +50,7 @@ res.send('hello world');
   
 
 app.get('/vulns', (req, res) => {
-  vulns.queryVulns((err, data) => {
+  db.queryVulns((err, data) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -59,10 +60,14 @@ app.get('/vulns', (req, res) => {
 });
 
 app.post('/hostip', (req, res) => {
-  hostip.saveData((err, hostip) => {
-   
-  })
-})
+  db.saveData((err, data) => {
+   if (err) {
+     res.sendStatus(500);
+   } else {
+     console.log('Saved: ', data);
+   }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port :${PORT}!`);

@@ -7,16 +7,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      vulns: [],
     };
-    this.getItems = this.getItems.bind(this);
+    this.getVulns = this.getVulns.bind(this);
   }
 
   componentDidMount() {
-    this.getItems()
+    this.getVulns()
       .then((data) => {
         this.setState({
-          items: data,
+          vulns: data,
         });
       })
       .catch((err) => {
@@ -24,18 +24,18 @@ class App extends React.Component {
       });
   }
 
-  getItems() {
-    return axios.get('/items')
+  getVulns() {
+    return axios.get('/vulns')
       .then(response => response.data);
   }
 
   render() {
-    const { items } = this.state;
+    const { vulns } = this.state;
 
     return (
       <div>
-        <h1>Item List</h1>
-        <List items={items} />
+        <h1>Vuln List</h1>
+        <List vulns={vulns} />
       </div>
     );
   }

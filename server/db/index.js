@@ -32,5 +32,5 @@ module.exports.queryVulns = (callback) => { // queries the DB
 };
 
 module.exports.saveData = () => {
- // connection. whatevertostore to db
+  connection.write()
 };
