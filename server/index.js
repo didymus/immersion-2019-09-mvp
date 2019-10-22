@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); // parses incoming req stream to `req.body`
 const axios = require('axios'); // for the requests to the db
-const db = require('./db');
+const { db } = require('./db');
 
 const PORT = 3000;
 
@@ -21,7 +21,7 @@ app.use(bodyParser);
 // curious about this one:
 // https://api.shodan.io/tools/httpheaders?key={API_KEY}
 
-module.exports.ipSearch = app.get('https://api.shodan.io/shodan/host/206.82.85.197?key=7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4', (req, res) => {
+const ipSearch = app.get('https://api.shodan.io/shodan/host/206.82.85.197?key=7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4', (req, res) => {
   console.log(req.body); // 206.82.85.197
   res.send('hello world');
   // express 'GET'
@@ -35,7 +35,7 @@ module.exports.ipSearch = app.get('https://api.shodan.io/shodan/host/206.82.85.1
 });
 
 
-module.exports.dnsResolve = app.get('https://api.shodan.io/dns/resolve?hostnames={hostnames}&key={YOUR_API_KEY}', (req, res) => {
+const dnsResolve = app.get('https://api.shodan.io/dns/resolve?hostnames={hostnames}&key={YOUR_API_KEY}', (req, res) => {
 // takes the information parsed by `body-parser` residing in `req.body` (find vulns, docs loc in response)  
 res.send('hello world');
   // express 'GET':
@@ -48,21 +48,22 @@ res.send('hello world');
 });
   
 
-// #######[ AXIOS DB REQUESTS ]#######
+app.get('/vulns', (req, res) => {
+  vulns.queryVulns((err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
-// AXIOS 'GET'
-// AXIOS 'POST'
+app.post('/hostip', (req, res) => {
+  hostip.saveData((err, hostip) => {
+   
+  })
+})
 
-// familiar.get('/vulns', (req, res) => { // selects all (*) from db in `items`
-//   vulns.queryVulns((err, data) => {
-//     if (err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
-
-module.exports.familiar.listen(PORT, () => {
-    console.log(`Listening on port :${PORT}!`);
+app.listen(PORT, () => {
+  console.log(`Listening on port :${PORT}!`);
 });

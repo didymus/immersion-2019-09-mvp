@@ -22,11 +22,15 @@ module.exports.queryVulns = (callback) => { // queries the DB
                   referenced_table_name = 'hostip' 
                   and referenced_column_name = 'hostip_id'`, 
                   (err, vulns) => {
-                    console.log(vulns); //********
+                    console.log(vulns); // HERE!
     if (err) {
       callback(err, null); // callback is the other function that interacts with this one?
     } else {
       callback(null, vulns); // vulns is the information from db
     }
   });
+};
+
+module.exports.saveData = () => {
+ // connection. whatevertostore to db
 };
