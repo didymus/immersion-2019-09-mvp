@@ -4,20 +4,22 @@ const connection = mysql.createConnection({
   host: '34.66.188.153',
   user: 'steven',
   password: '0cXRO7Jvs3IxleMj',
-  database: 'db_steven', // cauldron
+  database: 'db_steven', // c a u l d r o n
 });
 
 // PORT: 3306
 // SHELL: mysql -h 34.66.188.153 -P 3306 -u steven -p'0cXRO7Jvs3IxleMj' db_steven
 
-const selectAll = (callback) => { // queries the DB
-  connection.query('SELECT * FROM items', (err, items) => {
+connection.connect(); // connect
+
+module.exports.queryVulns = (callback) => { // queries the DB
+  connection.query('select ', (err, vulns) => { // FIX QUERY STATEMENT
     if (err) {
       callback(err, null);
     } else {
-      callback(null, items);
+      callback(null, vulns);
     }
   });
 };
 
-module.exports.selectAll = selectAll;
+connection.end(); // end connection
