@@ -22,6 +22,7 @@ module.exports.queryVulns = (callback) => { // queries the DB
                   referenced_table_name = 'hostip' 
                   and referenced_column_name = 'hostip_id'`, 
                   (err, vulns) => {
+                    console.log(vulns); //********
     if (err) {
       callback(err, null); // callback is the other function that interacts with this one?
     } else {
@@ -29,5 +30,3 @@ module.exports.queryVulns = (callback) => { // queries the DB
     }
   });
 };
-
-connection.end(); // end connection

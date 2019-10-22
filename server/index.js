@@ -21,7 +21,8 @@ app.use(bodyParser);
 // curious about this one:
 // https://api.shodan.io/tools/httpheaders?key={API_KEY}
 
-module.exports.ipSearch = app.get('https://api.shodan.io/shodan/host/{ip}?key={7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4}', (req, res) => {
+module.exports.ipSearch = app.get('https://api.shodan.io/shodan/host/206.82.85.197?key=7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4', (req, res) => {
+  console.log(req.body); // 206.82.85.197
   res.send('hello world');
   // express 'GET'
   // ip search end point:
@@ -35,7 +36,8 @@ module.exports.ipSearch = app.get('https://api.shodan.io/shodan/host/{ip}?key={7
 
 
 module.exports.dnsResolve = app.get('https://api.shodan.io/dns/resolve?hostnames={hostnames}&key={YOUR_API_KEY}', (req, res) => {
-  res.send('hello world');
+// takes the information parsed by `body-parser` residing in `req.body` (find vulns, docs loc in response)  
+res.send('hello world');
   // express 'GET':
   // dns resolve end point:
   // https://api.shodan.io/dns/resolve?hostnames={hostnames}&key={YOUR_API_KEY}
