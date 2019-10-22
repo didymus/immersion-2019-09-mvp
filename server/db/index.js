@@ -31,6 +31,6 @@ module.exports.queryVulns = (callback) => { // queries the DB
   });
 };
 
-module.exports.saveData = () => {
-  connection.write()
+module.exports.saveData = (data) => {
+  connection.query(`insert into`)
 };
