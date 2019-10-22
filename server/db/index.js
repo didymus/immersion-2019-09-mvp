@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql'); // node mysql
 
 const connection = mysql.createConnection({
   host: '34.66.188.153',
@@ -10,7 +10,10 @@ const connection = mysql.createConnection({
 // PORT: 3306
 // SHELL: mysql -h 34.66.188.153 -P 3306 -u steven -p'0cXRO7Jvs3IxleMj' db_steven
 
-connection.connect(); // connect
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected!');
+}); // connect
 
 module.exports.queryVulns = (callback) => { // queries the DB
   connection.query(`select * from 
@@ -20,9 +23,9 @@ module.exports.queryVulns = (callback) => { // queries the DB
                   and referenced_column_name = 'hostip_id'`, 
                   (err, vulns) => {
     if (err) {
-      callback(err, null);
+      callback(err, null); // callback is the other function that interacts with this one?
     } else {
-      callback(null, vulns);
+      callback(null, vulns); // vulns is the information from db
     }
   });
 };
