@@ -1,14 +1,20 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS db_steven;
 
-CREATE DATABASE test;
+CREATE DATABASE db_steven;
 
-USE test;
+USE db_steven;
 
-CREATE TABLE items (
+CREATE TABLE hostip (
   id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
-  PRIMARY KEY (ID)
+  host varchar(255) NOT NULL,
+  ip varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE vulns (
+  vulns varchar(255) NOT NULL,
+  id int NOT NULL,
+  FOREIGN KEY(id) REFERENCES hostip(id)
 );
 
 /*  Execute this file from the command line by typing:
