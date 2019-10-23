@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // parses the API data into `req.body`
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4 (not an API key)
+// 7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4
 
 // #######[ AXIOS API 'GET' ]#######
 // curious about this one:
@@ -21,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const ipSearch = axios.get('https://api.shodan.io/shodan/host/206.82.85.197?key=7FGvLUBX0p9z5ic3t1txmqdycsKhNIh4')
   .then((response) => { // res.send(req.body.vulns)
-    //debugger;
-    console.log('Vulnerabilities: ', response.data.vulns); // (w/o docs [array])
-   //console.log('Documentation: ', response.data.data[10].vulns); // (w docs {object}) 
+   //debugger;
+   //console.log('Vulnerabilities: ', response.data.vulns); // (w/o docs [array])
+   //console.log('Documentation: ', response.data.data[0].vulns); // (w docs {object}) 
 }).catch((error) => {
   console.log('Error: ', error);
 });
