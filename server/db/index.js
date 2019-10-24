@@ -17,16 +17,16 @@ connection.connect((err) => {
   console.log('Connected!');
 });
 
-module.exports.queryVulns = (callback) => {
-  connection.query(`select * from 
-                  key_column_usage 
-                  where 
-                  referenced_table_name = 'hostip' 
-                  and referenced_column_name = 'hostip_id'`, 
-                  ).then().catch((err) => {
-                    console.log('Error from queryVulns: ', err);
-                  }); 
-};
+// module.exports.queryVulns = (callback) => {
+//   connection.query(`select * from 
+//                   key_column_usage 
+//                   where 
+//                   referenced_table_name = 'ip' 
+//                   and referenced_column_name = 'ip_id'`, 
+//                   ).then().catch((err) => {
+//                     console.log('Error from queryVulns: ', err);
+//                   }); 
+// };
 
 // if (err) {
 //   callback(err, null);
@@ -36,13 +36,6 @@ module.exports.queryVulns = (callback) => {
 // }
 
 module.exports.storeVulns = (ip, vuln) => {
-  connection.query(`INSERT INTO ip (ip)
-                    VALUES (${ ip });
-                    INSERT INTO vulns (vulns, id)
-                    VALUES (${ vuln }, (SELECT id FROM ip WHERE ip=${ ip }));
-    `).then((data) => {
-      console.log('********** storeVulns', data);
-    }).catch((err) => {
-      console.log('Error from storeVulns: ', err);
-    });
+  connection.query(`INSERT INTO vulns (ip, vuln)
+                    VALUES ("${ ip }", "${ vuln }");`);
 };

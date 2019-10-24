@@ -26,8 +26,7 @@ const ipSearch = axios.get(`https://api.shodan.io/shodan/host/${ ip }?key=${ key
    //console.log('Vulnerabilities: ', response.data.vulns); // (w/o docs [array])
    //console.log('Documentation: ', response.data.data[0].vulns); // (w docs {object}) 
    response.data.vulns.forEach(vuln => {
-      //console.log(`${ ip }`, vuln);
-     storeVulns(`${ ip }`, vuln);
+     storeVulns(`${ ip }`, vuln); // ended up just doing it this way due to time-constraints
    });
 }).catch((error) => {
   console.log('Error: ', error);
