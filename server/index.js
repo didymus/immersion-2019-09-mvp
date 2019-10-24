@@ -9,7 +9,7 @@ const PORT = 3000;
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use('/', express.static('client/dist'));
 // parses the API data into `req.body`
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -51,14 +51,14 @@ const ipSearch = axios.get(`https://api.shodan.io/shodan/host/${ ip }?key=${ key
   // scrub the inputs for XSS and SQLi eventually
   // input: will take domain-name(s) (can be separated by commas)
   
-app.get('/vulns', (req, res) => {
-  queryVulns((err, data) => {
+app.get('/items', (req, res) => {
+  queryVulns((err, vulns) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+        res.end(JSON.stringify(vulns));
     }
-  });
+  })
 });
 
 app.listen(PORT, () => {

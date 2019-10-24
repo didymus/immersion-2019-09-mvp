@@ -7,35 +7,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vulns: [],
+      items: [],
     };
-    this.getVulns = this.getVulns.bind(this);
+    this.getItems = this.getItems.bind(this);
+  }
+  getItems() {
+    console.log('##########');
+    return axios.get('/items')
+      .then(response => this.setState({ items: response.data}))
   }
 
   componentDidMount() {
-    this.getVulns()
-      .then((data) => {
-        this.setState({
-          vulns: data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    this.getItems()
+      // .then((data) => {
+      //   this.setState({
+      //     items: data,
+      //   });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
   }
 
-  getVulns() {
-    return axios.get('/vulns')
-      .then(response => response.data);
-  }
 
   render() {
-    const { vulns } = this.state;
+    const { items } = this.state;
 
     return (
       <div>
-        <h1>Vuln List</h1>
-        <List vulns={vulns} />
+        <h1>Item List</h1>
+        <List items={items} />
+        <button onClick={this.getItems}>Click</button>
       </div>
     );
   }
