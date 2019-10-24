@@ -1,11 +1,13 @@
-const mysql = require('mysql'); // node mysql
+const mysql = require('mysql');
 
-const connection = mysql.createConnection({
+const options = {
   host: '34.66.188.153',
   user: 'steven',
   password: '0cXRO7Jvs3IxleMj',
-  database: 'db_steven', // c a u l d r o n
-});
+  database: 'db_steven',
+};
+
+const connection = mysql.createConnection(options);
 
 // PORT: 3306
 // SHELL: mysql -h 34.66.188.153 -P 3306 -u steven -p'0cXRO7Jvs3IxleMj' db_steven
@@ -13,24 +15,40 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) throw err;
   console.log('Connected!');
-}); // connect
+});
 
-module.exports.queryVulns = (callback) => { // queries the DB
+module.exports.queryVulns = (callback) => {
   connection.query(`select * from 
                   key_column_usage 
                   where 
                   referenced_table_name = 'hostip' 
                   and referenced_column_name = 'hostip_id'`, 
-                  (err, vulns) => {
-                    console.log(vulns); // HERE!
-    if (err) {
-      callback(err, null); // callback is the other function that interacts with this one?
-    } else {
-      callback(null, vulns); // vulns is the information from db
-    }
-  });
+                  ).then().catch((err) => {
+                    console.log('Error from queryVulns: ', err);
+                  }); 
 };
 
-module.exports.saveData = (data) => {
-  connection.query(`insert into`)
+// if (err) {
+//   callback(err, null);
+// } else {
+//   console.log('############ queryVulns ############');
+//   callback(null, vulns);
+// }
+
+module.exports.storeVulns = (vulns) => {
+  // let sql = 'INSERT INTO  () VALUES ()';
+  // connection.query(`write blahblah sql`,
+  //   (err, results, fields) => {
+  //     if (err) {
+  //       console.log('Error: ', err);
+  //     } else {
+  //       console.log('*************** DATA STORED ***************');
+  //     }
+  //   });
+  connection.query(`write something`)
+    .then((data) => {
+      console.log('********** storeVulns', data);
+    }).catch((err) => {
+      console.log('Error from storeVulns: ', err);
+    });
 };
