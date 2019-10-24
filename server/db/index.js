@@ -35,18 +35,12 @@ module.exports.queryVulns = (callback) => {
 //   callback(null, vulns);
 // }
 
-module.exports.storeVulns = (vulns) => {
-  // let sql = 'INSERT INTO  () VALUES ()';
-  // connection.query(`write blahblah sql`,
-  //   (err, results, fields) => {
-  //     if (err) {
-  //       console.log('Error: ', err);
-  //     } else {
-  //       console.log('*************** DATA STORED ***************');
-  //     }
-  //   });
-  connection.query(`write something`)
-    .then((data) => {
+module.exports.storeVulns = (ip, vuln) => {
+  connection.query(`INSERT INTO ip (ip)
+                    VALUES (${ ip });
+                    INSERT INTO vulns (vulns, id)
+                    VALUES (${ vuln }, (SELECT id FROM ip WHERE ip=${ ip }));
+    `).then((data) => {
       console.log('********** storeVulns', data);
     }).catch((err) => {
       console.log('Error from storeVulns: ', err);

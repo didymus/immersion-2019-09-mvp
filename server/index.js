@@ -13,8 +13,6 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // parses the API data into `req.body`
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 
-
 // #######[ AXIOS API 'GET' ]#######
 // curious about this one:
 // https://api.shodan.io/tools/httpheaders?key={API_KEY}
@@ -28,6 +26,7 @@ const ipSearch = axios.get(`https://api.shodan.io/shodan/host/${ ip }?key=${ key
    //console.log('Vulnerabilities: ', response.data.vulns); // (w/o docs [array])
    //console.log('Documentation: ', response.data.data[0].vulns); // (w docs {object}) 
    response.data.vulns.forEach(vuln => {
+      //console.log(`${ ip }`, vuln);
      storeVulns(`${ ip }`, vuln);
    });
 }).catch((error) => {
@@ -62,11 +61,6 @@ app.get('/vulns', (req, res) => {
     }
   });
 });
-
-// app.post('/hostip', (req, res) => {
-//   //const schemaData = req.body; // transform req.body into schema data
-//   //db.saveData(schemaData);
-// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port :${PORT}!`);

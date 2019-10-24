@@ -4,9 +4,9 @@ CREATE DATABASE db_steven;
 
 USE db_steven;
 
-CREATE TABLE hostip (
+CREATE TABLE ip (
   id int NOT NULL AUTO_INCREMENT,
-  host varchar(255) NOT NULL,
+  -- host varchar(255) NOT NULL,
   ip varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
@@ -14,7 +14,7 @@ CREATE TABLE hostip (
 CREATE TABLE vulns (
   vulns varchar(255) NOT NULL,
   id int NOT NULL,
-  FOREIGN KEY(id) REFERENCES hostip(id)
+  FOREIGN KEY(id) REFERENCES ip(id)
 );
 
 /*  Execute this file from the command line by typing:
