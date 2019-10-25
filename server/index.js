@@ -5,7 +5,7 @@ const bodyParser = require('body-parser'); // parses incoming req stream to `req
 const axios = require('axios'); // requests to API, responses get transform to schema and become arg for `saveData`
 const { storeVulns, queryVulns } = require('./db');
 
-const PORT = 3000;
+//const PORT = 3000;
 
 const app = express();
 
@@ -61,6 +61,6 @@ app.get('/items', (req, res) => {
   })
 });
 
-app.listen(PORT, () => {
+app.listen((process.env.PORT || 3000), () => {
   console.log(`Listening on port :${PORT}!`);
 });
