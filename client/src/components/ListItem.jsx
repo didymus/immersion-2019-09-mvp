@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
   <div>
-    { item }
+    {Object.keys(item).map(obj => <div>{item[obj]}</div>)}
   </div>
 );
 

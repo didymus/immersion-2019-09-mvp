@@ -29,7 +29,6 @@ class App extends React.Component {
       // });
   }
 
-
   render() {
     const { items } = this.state;
 
@@ -37,7 +36,7 @@ class App extends React.Component {
       <div>
         <h1>Item List</h1>
         <List items={items} />
-        <button onClick={this.getItems}>Click</button>
+        {/* <button onClick={this.getItems}>Click</button> */}
       </div>
     );
   }
