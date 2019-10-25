@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const ip = '206.82.85.197';
 
-const ipSearch = axios.get(`https://api.shodan.io/shodan/host/${ ip }?key=${ process.env.key }`)
+const ipSearch = axios.get(`https://api.shodan.io/shodan/host/${ ip }?key=${ process.env.KEY }`)
   .then((response) => {
    //debugger;
    //console.log('Vulnerabilities: ', response.data.vulns); // (w/o docs [array])
